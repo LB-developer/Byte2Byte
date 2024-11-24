@@ -1,3 +1,8 @@
+using Byte2Byte.Data;
+using Byte2Byte.Services;
+using Microsoft.EntityFrameworkCore;
+using MongoDB.Driver;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -14,6 +19,15 @@ builder.Services.AddCors(options =>
     });
 });
 builder.Services.AddControllers();
+builder.Services.AddScoped<LoopsService>();
+
+var dbConnectionString = builder.Configuration["Byte2Byte:DatabaseConnectionString"];
+MongoClient client = new MongoClient(connectionString: dbConnectionString);
+
+var dbContextOptions =
+    new DbContextOptionsBuilder<ByteDbContext>().UseMongoDB(client, "ByteDB");
+
+builder.Services.AddSingleton(new ByteDbContext(dbContextOptions.Options));
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
