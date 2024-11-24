@@ -2,28 +2,32 @@ import './App.css'
 
 export default function App() {
     
-    const fetchSomething = async () => {
+    const fetchLoops = async () => {
       try {
-          const res = await fetch("https://localhost:7176/api/v1/RandomNumber")
+          const res = await fetch("https://localhost:7176/api/v1/Loops",
+              {
+                  method: "POST",
+              })
             
-          if (res.status != 200) {
-              throw new Error("Response status was not 200 when fetching the weather forecast")
+          if (res.status != 201) {
+              throw new Error("Response status was not 201 when creating the placeholder")
           }
           
-          let json = await res.json()
-          
-          console.log(json)
+          console.log("Created placeholder")
       } catch (e) {
-         console.error("Couldn't fetch or parse the response for fetch", e) 
+         console.error(e) 
       }
     }
 
   return (
     <>
-      <div className="card">
-        <button onClick={fetchSomething}>
-        </button>
-      </div>
+        <ul>
+            <li>Loops
+            <button onClick={fetchLoops}> Fetch Loops</button>
+            </li>
+            <li>Conditionals</li>
+            <li>Methods</li>
+        </ul>
     </>
   )
 }
