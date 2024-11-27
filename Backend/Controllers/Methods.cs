@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace Setup.Controllers;
+namespace Byte2Byte.Controllers;
 
 [Route("api/v1/[controller]")]
 [ApiController]
